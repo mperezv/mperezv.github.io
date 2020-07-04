@@ -18,9 +18,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Marisa Pérez | Web Developer
-email: marisapv@protonmail.com
+title: Marisa Pérez  | Web Developer
+email: marisapv[a]protonmail.com
 description: >- # this means to ignore newlines until "baseurl:"
+  Powered with Jekyllrb
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "www.mperezv.github.io"
 github_username:  mperezv
