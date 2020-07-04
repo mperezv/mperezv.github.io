@@ -179,8 +179,10 @@ pre {
   max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
   margin-right: auto;
   margin-left: auto;
+  margin-bottom: 2em;
   padding-right: $spacing-unit;
   padding-left: $spacing-unit;
+  //display: flex;
   @extend %clearfix;
 
   @include media-query($on-laptop) {

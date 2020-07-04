@@ -20,8 +20,6 @@
 
 title: Marisa Pérez
 email: marisapv[a]protonmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Powered with Jekyllrb
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "www.mperezv.github.io"
 github_username:  mperezv
