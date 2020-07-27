@@ -34,6 +34,9 @@ plugins:
 emoji:
   src: "https://github.githubassets.com/images/icons/"
 
+tag_page_layout: tag_page
+tag_page_dir: tag
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
