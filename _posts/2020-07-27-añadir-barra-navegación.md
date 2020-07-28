@@ -3,8 +3,9 @@ layout: post
 title:  "Cómo añadir una barra de navegación a tu aplicación Rails con Tailwind"
 date:   2020-07-27 23:48 +0200
 categories: jekyll update
+tags: rails tailwind
 ---
-
+ 
 Esta semana estoy estudiando las vistas de Ruby on Rails y la parte de front en general. Ahora mismo tengo una aplicación que es un desastre a nivel de front. Tener tiene pero es un HTML casi a pelo, vaya. 
 
 En este contexto he decidido empezar por ponerle una barra de navegación con [Tailwind](https://tailwindcss.com/) a mi proyecto.

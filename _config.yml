@@ -20,7 +20,6 @@
 
 title: Marisa Pérez
 email: marisapv[a]protonmail.com
-baseurl: "" # the subpath of your site, e.g. /blog
 url: "www.mperezv.github.io"
 github_username:  mperezv
 
@@ -30,6 +29,7 @@ theme: minima
 #Plugins
 plugins:
   - jemoji
+  - jekyll-tagging
 
 emoji:
   src: "https://github.githubassets.com/images/icons/"

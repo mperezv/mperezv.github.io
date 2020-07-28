@@ -215,6 +215,7 @@
 }
 
 .post-meta {
+  margin-top: 1em;
   font-size: $small-font-size;
   color: $grey-color;
 }
@@ -269,4 +270,13 @@
       @include relative-font-size(1.125);
     }
   }
+}
+
+.tag{
+  margin: 0.5em;
+  padding: 0.1em 0.5em;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
 }

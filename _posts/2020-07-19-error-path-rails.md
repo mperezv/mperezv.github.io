@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Warning instalando RVM en Ubuntu: PATH is not properly set up"
-date:   2020-07-04 15:48 +0200
+date:   2020-07-19 15:48 +0200
 categories: jekyll update
+tags: ruby
 ---
 
 (RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR.
