@@ -29,7 +29,6 @@ theme: minima
 #Plugins
 plugins:
   - jemoji
-  - jekyll-tagging
 
 emoji:
   src: "https://github.githubassets.com/images/icons/"
