@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang=""><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Warning instalando RVM en Ubuntu: PATH is not properly set up | Marisa Pérez</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Warning instalando RVM en Ubuntu: PATH is not properly set up" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="(RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR." />
+<meta property="og:description" content="(RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR." />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2020/07/19/error-path-rails.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2020/07/19/error-path-rails.html" />
+<meta property="og:site_name" content="Marisa Pérez" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-19T15:48:00+02:00" />
+<script type="application/ld+json">
+{"headline":"Warning instalando RVM en Ubuntu: PATH is not properly set up","dateModified":"2020-07-19T15:48:00+02:00","datePublished":"2020-07-19T15:48:00+02:00","url":"http://localhost:4000/jekyll/update/2020/07/19/error-path-rails.html","description":"(RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2020/07/19/error-path-rails.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+  <link rel=”shortcut icon” type="image/ico" href="/assets/pgb-chip-generic.ico">
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+<img src="/assets/pgb-chip-generic.svg" style="height: 3em;">
+    <a class="site-title" rel="author" href="/">Marisa Pérez</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/sobre-mi/">Sobre mí</a></div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Warning instalando RVM en Ubuntu: PATH is not properly set up</h1>
+<a href="/tag/ruby.html"><span class="tag">ruby</span></a><p class="post-meta">
+      <time class="dt-published" datetime="2020-07-19T15:48:00+02:00" itemprop="datePublished">Jul 19, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>(RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR.</p>
+
+<p>Hubo una época en que debí seguir los pasos en orden y tuve instalado RVM sin problemas en mi ordenador, pero después de algún formateo y de haber ignorado un par de <em>warnings</em> me decidí por prestar atención a la configuración de RVM. Cuando ejecutaba <code class="language-plaintext highlighter-rouge">rvm -v</code> me encontraba con el siguiente error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning! PATH is not properly set up, /home/marisa/.rvm/gems/ruby-2.7.0/bin is not at first place.
+         Usually this is caused by shell initialization files. Search for PATH=... entries.
+         You can also re-add RVM to your profile by running: rvm get stable --auto-dotfiles
+         To fix it temporarily in this shell session run: rvm use ruby-2.7.0
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+rvm 1.29.10 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
+
+</code></pre></div></div>
+
+<p>Al comprobar mi variable <code class="language-plaintext highlighter-rouge">PATH</code> con <code class="language-plaintext highlighter-rouge">echo :$PATH:</code> efectivamente lo primero que devolvía no era el RVM. <img class="emoji" title=":cry:" alt=":cry:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f622.png" height="20" width="20"></p>
+
+<p>Yo utilizo ZSH en mi terminal y, a veces, estas instalaciones que crean variables de entorno automáticamente escriben en <code class="language-plaintext highlighter-rouge">.bashrc</code> en vez de en <code class="language-plaintext highlighter-rouge">.zshrc</code> así que normalmente soluciono ese tipo de problemas viendo qué es lo que se ha escrito en <code class="language-plaintext highlighter-rouge">.bashrc</code> y copiándolo en <code class="language-plaintext highlighter-rouge">.zshrc</code>. Pero esta vez no funcionaba.</p>
+
+<p>También intenté ejecutar <code class="language-plaintext highlighter-rouge">rvm get stable --auto-dotfiles</code> pero cuando ejecutaba <code class="language-plaintext highlighter-rouge">rvm -v</code> seguía devolviendo el mismo <em>warning</em>.</p>
+
+<p>Después de varias horas vagando por internet, encontré una solución que sirve tanto para zsh como para bash <img class="emoji" title=":grin:" alt=":grin:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f601.png" height="20" width="20">. Añadir al fichero de inicialización que corresponda (<code class="language-plaintext highlighter-rouge">bashrc</code> o <code class="language-plaintext highlighter-rouge">zshrc</code>) la siguiente línea:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH="$GEM_HOME/bin:$PATH"
+</code></pre></div></div>
+
+<p>Es un poco parche porque me da a mí que lo que estamos haciendo es hardcodear la ruta y que debe haber una manera mejor de solucionar el problema, pero adiós <em>warning</em> sin pasar por silenciar y seteando la ruta al valor que toca.</p>
+
+
+  </div>
+<a class="u-url" href="/jekyll/update/2020/07/19/error-path-rails.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-6">
+        <ul class="contact-list"><li><a class="u-email" href="mailto:marisapv%5Ba%5Dprotonmail.com">marisapv[a]protonmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"><li><a href="https://github.com/mperezv"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">mperezv</span></a></li></ul>
+</div>
+
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

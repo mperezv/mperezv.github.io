@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-29T17:14:09+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Marisa Pérez</title><entry><title type="html">Cómo añadir una barra de navegación a tu aplicación Rails con Tailwind</title><link href="http://localhost:4000/jekyll/update/2020/07/27/a%C3%B1adir-barra-navegaci%C3%B3n.html" rel="alternate" type="text/html" title="Cómo añadir una barra de navegación a tu aplicación Rails con Tailwind" /><published>2020-07-27T23:48:00+02:00</published><updated>2020-07-27T23:48:00+02:00</updated><id>http://localhost:4000/jekyll/update/2020/07/27/a%C3%B1adir-barra-navegaci%C3%B3n</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/07/27/a%C3%B1adir-barra-navegaci%C3%B3n.html">&lt;p&gt;Esta semana estoy estudiando las vistas de Ruby on Rails y la parte de front en general. Ahora mismo tengo una aplicación que es un desastre a nivel de front. Tener tiene pero es un HTML casi a pelo, vaya.&lt;/p&gt;
+
+&lt;p&gt;En este contexto he decidido empezar por ponerle una barra de navegación con &lt;a href=&quot;https://tailwindcss.com/&quot;&gt;Tailwind&lt;/a&gt; a mi proyecto.&lt;/p&gt;
+
+&lt;h2 id=&quot;tailwind-instalación-y-configuración&quot;&gt;Tailwind: instalación y configuración&lt;/h2&gt;
+
+&lt;p&gt;Tailwind es un &lt;em&gt;framework&lt;/em&gt; de CSS (como &lt;a href=&quot;https://getbootstrap.com&quot;&gt;Bootstrap&lt;/a&gt;) “altamente customizable, de bajo nivel y que te da todos los bloques que necesitas para construir diseños a medida sin ningún molesto estilo terco contra el que tienes que luchar para sobreescribirlo”.&lt;/p&gt;
+
+&lt;p&gt;Funciona de una manera similar a Bootstrap, con clases de CSS que puedes añadir a tu código y unos ficheros SCSS que puedes sobreescribir para personalizar esas clases.&lt;/p&gt;
+
+&lt;h3 id=&quot;instalación&quot;&gt;Instalación&lt;/h3&gt;
+
+&lt;p&gt;Podemos instalar Tailwind con npm o con yarn.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Utilizando npm&lt;/span&gt;
+npm &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;tailwindcss
+
+&lt;span class=&quot;c&quot;&gt;# Utilizando Yarn&lt;/span&gt;
+yarn add tailwindcss
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ahora necesitaremos un fichero de configuración que se llame &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tailwind.config.js&lt;/code&gt; en la raíz de nuestro proyecto. Podemos crearlo de dos maneras:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Con la ruta&lt;/span&gt;
+./node_modules/.bin/tailwind init
+
+&lt;span class=&quot;c&quot;&gt;# Con npx&lt;/span&gt;
+npx tailwindcss init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Si quisiéramos darle otro nombre al fichero de configuración, le tenemos que pasar al comando el nuevo nombre como parámetro.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx tailwindcss init tailwindcss-configuración.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;En el caso de que utilicemos un nombre de fichero personalizado, necesitaremos especificarlo cuando se incluya Tailwind como plugin en tu configuración PostCSS también:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// postcss.config.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tailwindcss&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./tailwindcss-configuración.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;También en la raíz de nuestro proyecto debería haber un fichero llamado &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postcss.config.js&lt;/code&gt; al que le añadiremos &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require('tailwindcss')&lt;/code&gt; y &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require('autoprefixer')&lt;/code&gt; para que taliwind se construya como plugin en tu proyecto:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//postcss.config.js&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;autoprefixer&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;    
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;postcss-import&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tailwindcss&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;postcss-flexbugs-fixes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;postcss-preset-env&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)({&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;autoprefixer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flexbox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;no-2009&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;configuración&quot;&gt;Configuración&lt;/h3&gt;
+
+&lt;p&gt;Para la configuración de Tailwind crearemos una hoja de estilos en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/javascript/src&lt;/code&gt; con:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;touch &lt;/span&gt;app/javascript/src/application.scss
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Como estamos utilizando &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postcss-import&lt;/code&gt; (está en el fichero &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postcss.config.js&lt;/code&gt;), la documentación nos indica que tenemos que utilizar los siguientes &lt;em&gt;imports&lt;/em&gt; en el fichero que acabamos de crear.&lt;/p&gt;
+
+&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// app/javascript/src/application.scss&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@import&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tailwindcss/base&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@import&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tailwindcss/components&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@import&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tailwindcss/utilities&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;También tendremos que añadir el import de este fichero en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/javascript/packs/application.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;../src/application.scss&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Por último, tendremos que indicar al &lt;em&gt;layout&lt;/em&gt; de la aplicación que nos cargue esas hojas de estilos y no las que tiene enlazadas. Esto lo haremos añadiendo las siguientes etiquetas a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/views/layouts/applicacion.html.erb&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %&amp;gt;
+&amp;lt;%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;crear-y-añadir-una-barra-de-navegación&quot;&gt;Crear y añadir una barra de navegación&lt;/h2&gt;
+
+&lt;p&gt;Hay dos conceptos que tendremos que tener claros a la hora de hacer una barra de navegación: &lt;strong&gt;&lt;em&gt;layouts&lt;/em&gt;&lt;/strong&gt; y &lt;strong&gt;vistas parciales&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Las &lt;em&gt;layouts&lt;/em&gt; o plantillas son las páginas de erb que se cargarán como plantilla en nuestras vistas. Para cargar la plantilla que toque, Rails busca primero un fichero en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/views/layouts&lt;/code&gt; con el mismo nombre base que el controlador. Es decir, si tenemos un &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ArticlesController&lt;/code&gt; buscará un &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;articles.html.erb&lt;/code&gt;. Si no hay una plantilla específica, cargará &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/views/layouts/application.html.erb&lt;/code&gt; o &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/views/layouts/application.builder&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Si quisiéramos declarar una plantilla específica para toda la aplicación con un nombre diferente al por defecto, tendríamos que sobreescribirlo desde el &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationController&lt;/code&gt; con la sentencia &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout &quot;nuestra_plantilla&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Estas plantillas tienen nuestro código y una, o varias, etiquetas &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;%= yield %&amp;gt;&lt;/code&gt; que son los espacios que se rellenarán con cada vista.&lt;/p&gt;
+
+&lt;p&gt;Para no tener que reescribir la barra de navegación en todas nuestras páginas, la añadiremos a nuestra &lt;em&gt;layout&lt;/em&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application.html.erb&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Podríamos o bien escribir directamente nuestro código sobre el &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yield&lt;/code&gt;, o (más ordenado) añadir una vista parcial con el código de nuestra barra de navegación.&lt;/p&gt;
+
+&lt;p&gt;Las vistas parciales son archivos con código erb cuyo nombre empieza por un guión bajo y que cargaremos en el resto de vistas con el método &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;render&lt;/code&gt; y el nombre de la vista parcial sin el guión bajo.&lt;/p&gt;
+
+&lt;p&gt;Así, para crear nuestra barra de navegación, crearemos un directorio &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application&lt;/code&gt; o &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shared&lt;/code&gt; en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/views&lt;/code&gt; y, dentro, un fichero que se llame &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_navbar.html.erb&lt;/code&gt; en el cual podríamos poner, por ejemplo, el siguiente código:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &amp;lt;nav class=&quot;flex items-center justify-between flex-wrap bg-teal-300 p-6&quot;&amp;gt;
+
+      &amp;lt;%= link_to image_tag('logo.png'), welcome_index_path %&amp;gt;
+
+      &amp;lt;div class=&quot;w-full block flex-grow lg:flex lg:items-center lg:w-auto&quot;&amp;gt;
+        &amp;lt;div class=&quot;text-sm lg:flex-grow&quot;&amp;gt;
+          &amp;lt;%= link_to 'Nuevo artículo', new_article_path, class: 'block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4' %&amp;gt;
+          &amp;lt;%= link_to 'Blog', controller: 'articles', class: 'block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white' %&amp;gt;
+        &amp;lt;/div&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/nav&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;En nuestra &lt;em&gt;layout&lt;/em&gt; añadiremos la siguiente línea:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;%= render &quot;application/navbar&quot; %&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;¡Y ya está! Ahora se cargará nuestra barra de navegación en todas las páginas de nuestra aplicación.&lt;/p&gt;</content><author><name></name></author><category term="rails" /><category term="tailwind" /><summary type="html">Esta semana estoy estudiando las vistas de Ruby on Rails y la parte de front en general. Ahora mismo tengo una aplicación que es un desastre a nivel de front. Tener tiene pero es un HTML casi a pelo, vaya.</summary></entry><entry><title type="html">Warning instalando RVM en Ubuntu: PATH is not properly set up</title><link href="http://localhost:4000/jekyll/update/2020/07/19/error-path-rails.html" rel="alternate" type="text/html" title="Warning instalando RVM en Ubuntu: PATH is not properly set up" /><published>2020-07-19T15:48:00+02:00</published><updated>2020-07-19T15:48:00+02:00</updated><id>http://localhost:4000/jekyll/update/2020/07/19/error-path-rails</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/07/19/error-path-rails.html">&lt;p&gt;(RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR.&lt;/p&gt;
+
+&lt;p&gt;Hubo una época en que debí seguir los pasos en orden y tuve instalado RVM sin problemas en mi ordenador, pero después de algún formateo y de haber ignorado un par de &lt;em&gt;warnings&lt;/em&gt; me decidí por prestar atención a la configuración de RVM. Cuando ejecutaba &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rvm -v&lt;/code&gt; me encontraba con el siguiente error:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Warning! PATH is not properly set up, /home/marisa/.rvm/gems/ruby-2.7.0/bin is not at first place.
+         Usually this is caused by shell initialization files. Search for PATH=... entries.
+         You can also re-add RVM to your profile by running: rvm get stable --auto-dotfiles
+         To fix it temporarily in this shell session run: rvm use ruby-2.7.0
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+rvm 1.29.10 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Al comprobar mi variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PATH&lt;/code&gt; con &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo :$PATH:&lt;/code&gt; efectivamente lo primero que devolvía no era el RVM. :cry:&lt;/p&gt;
+
+&lt;p&gt;Yo utilizo ZSH en mi terminal y, a veces, estas instalaciones que crean variables de entorno automáticamente escriben en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; en vez de en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.zshrc&lt;/code&gt; así que normalmente soluciono ese tipo de problemas viendo qué es lo que se ha escrito en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; y copiándolo en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.zshrc&lt;/code&gt;. Pero esta vez no funcionaba.&lt;/p&gt;
+
+&lt;p&gt;También intenté ejecutar &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rvm get stable --auto-dotfiles&lt;/code&gt; pero cuando ejecutaba &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rvm -v&lt;/code&gt; seguía devolviendo el mismo &lt;em&gt;warning&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Después de varias horas vagando por internet, encontré una solución que sirve tanto para zsh como para bash :grin:. Añadir al fichero de inicialización que corresponda (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bashrc&lt;/code&gt; o &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zshrc&lt;/code&gt;) la siguiente línea:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export PATH=&quot;$GEM_HOME/bin:$PATH&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Es un poco parche porque me da a mí que lo que estamos haciendo es hardcodear la ruta y que debe haber una manera mejor de solucionar el problema, pero adiós &lt;em&gt;warning&lt;/em&gt; sin pasar por silenciar y seteando la ruta al valor que toca.&lt;/p&gt;</content><author><name></name></author><category term="ruby" /><summary type="html">(RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR.</summary></entry></feed>
