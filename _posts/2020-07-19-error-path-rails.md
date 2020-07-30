@@ -6,7 +6,7 @@ categories: jekyll update
 tags: ruby
 ---
 
-(RVM)[https://rvm.io/] es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR.
+[RVM](https://rvm.io/) es el gestor de versiones de Ruby que se recomienda utilizar cuando instalamos RoR.
 
 Hubo una época en que debí seguir los pasos en orden y tuve instalado RVM sin problemas en mi ordenador, pero después de algún formateo y de haber ignorado un par de _warnings_ me decidí por prestar atención a la configuración de RVM. Cuando ejecutaba `rvm -v` me encontraba con el siguiente error:
 
