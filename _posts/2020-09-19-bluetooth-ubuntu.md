@@ -3,7 +3,7 @@ layout: post
 title:  "La interfaz gráfica no detecta bluetooth en Ubuntu"
 date:   2020-09-19 9:00 +0200
 categories: jekyll update
-tags: linux wireless ubuntu solución
+tags: linux wireless ubuntu
 ---
 
 El otro día me encontré con que no podía encender ni apagar el bluetooth desde la interfaz gráfica de configuración del sistema en  Ubuntu y no detectaba ningún dispositivo. En vez de reiniciar el ordenador hasta que se arreglara solo (que probablemente habría funcionado), decidí investigar cómo arreglar esto desde terminal.
